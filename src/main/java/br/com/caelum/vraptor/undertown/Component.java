@@ -1,17 +1,11 @@
 package br.com.caelum.vraptor.undertown;
 
-import javax.annotation.PreDestroy;
-import javax.enterprise.context.RequestScoped;
+import br.com.caelum.vraptor.Controller;
 
-@RequestScoped
+@Controller
 public class Component {
-
-	public String get(){
-		return "opaopa";
-	}
-	
-	@PreDestroy
+		
 	public void killing(){
-		System.out.println("matando meu component");
+		System.out.println("killing path...");
 	}
 }

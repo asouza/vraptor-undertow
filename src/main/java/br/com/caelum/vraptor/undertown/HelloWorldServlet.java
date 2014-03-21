@@ -6,14 +6,19 @@ import io.undertow.server.HttpHandler;
 import io.undertow.server.handlers.PathHandler;
 import io.undertow.servlet.api.DeploymentInfo;
 import io.undertow.servlet.api.DeploymentManager;
+import io.undertow.servlet.api.FilterInfo;
+import io.undertow.servlet.api.InstanceFactory;
 import io.undertow.servlet.api.ListenerInfo;
-import static io.undertow.servlet.Servlets.defaultContainer;
-import static io.undertow.servlet.Servlets.deployment;
-import static io.undertow.servlet.Servlets.servlet;
 
+import javax.servlet.DispatcherType;
+import javax.servlet.Filter;
 import javax.servlet.ServletException;
 
 import org.jboss.weld.environment.servlet.Listener;
+
+import br.com.caelum.vraptor.VRaptor;
+import static io.undertow.servlet.Servlets.defaultContainer;
+import static io.undertow.servlet.Servlets.deployment;
 
 public class HelloWorldServlet {
 
@@ -23,10 +28,12 @@ public class HelloWorldServlet {
 		try {
 
 			ListenerInfo weldListener = new ListenerInfo(Listener.class);
-			DeploymentInfo servletBuilder = deployment().setClassLoader(HelloServlet.class.getClassLoader())
-					.setContextPath(MYAPP).setDeploymentName("test.war")
-					.addServlets(servlet("HelloServlet", HelloServlet.class).addMapping("/hello"))
-					.addListener(weldListener);
+			InstanceFactory<? extends Filter> vraptorFilterFactory = new VRaptorFilterFactory();
+			;
+			FilterInfo vraptorFilter = new FilterInfo("vraptor", VRaptor.class, vraptorFilterFactory);			
+			DeploymentInfo servletBuilder = deployment().setClassLoader(VRaptorFilterFactory.class.getClassLoader())
+					.setContextPath(MYAPP).setDeploymentName("test.war").addListener(weldListener)
+					.addFilter(vraptorFilter).addFilterUrlMapping("vraptor", "/*", DispatcherType.REQUEST);
 
 			DeploymentManager manager = defaultContainer().addDeployment(servletBuilder);
 			manager.deploy();
