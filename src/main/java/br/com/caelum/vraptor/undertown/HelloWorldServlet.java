@@ -2,18 +2,28 @@ package br.com.caelum.vraptor.undertown;
 
 import io.undertow.Handlers;
 import io.undertow.Undertow;
+import io.undertow.jsp.HackInstanceManager;
+import io.undertow.jsp.JspServletBuilder;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.handlers.PathHandler;
+import io.undertow.server.handlers.resource.FileResourceManager;
+import io.undertow.server.handlers.resource.ResourceManager;
 import io.undertow.servlet.api.DeploymentInfo;
 import io.undertow.servlet.api.DeploymentManager;
 import io.undertow.servlet.api.FilterInfo;
 import io.undertow.servlet.api.InstanceFactory;
 import io.undertow.servlet.api.ListenerInfo;
 
+import java.io.File;
+import java.util.HashMap;
+
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.ServletException;
 
+import org.apache.jasper.deploy.JspPropertyGroup;
+import org.apache.jasper.deploy.TagLibraryInfo;
+import org.apache.tomcat.InstanceManager;
 import org.jboss.weld.environment.servlet.Listener;
 
 import br.com.caelum.vraptor.VRaptor;
@@ -29,12 +39,15 @@ public class HelloWorldServlet {
 
 			ListenerInfo weldListener = new ListenerInfo(Listener.class);
 			InstanceFactory<? extends Filter> vraptorFilterFactory = new VRaptorFilterFactory();
-			;
-			FilterInfo vraptorFilter = new FilterInfo("vraptor", VRaptor.class, vraptorFilterFactory);			
+			FilterInfo vraptorFilter = new FilterInfo("vraptor", VRaptor.class, vraptorFilterFactory);
+			ResourceManager webappResourceManager = new FileResourceManager(new File("src/main/webapp"), 1000000l);
 			DeploymentInfo servletBuilder = deployment().setClassLoader(VRaptorFilterFactory.class.getClassLoader())
 					.setContextPath(MYAPP).setDeploymentName("test.war").addListener(weldListener)
-					.addFilter(vraptorFilter).addFilterUrlMapping("vraptor", "/*", DispatcherType.REQUEST);
-
+					.addFilter(vraptorFilter).addFilterUrlMapping("vraptor", "/*", DispatcherType.REQUEST)
+					.addServlet(JspServletBuilder.createServlet("Default Jsp Servlet", "*.jsp"))
+					.setResourceManager(webappResourceManager);
+			JspServletBuilder.setupDeployment(servletBuilder, new HashMap<String, JspPropertyGroup>(),
+					new HashMap<String, TagLibraryInfo>(), new HackInstanceManager());
 			DeploymentManager manager = defaultContainer().addDeployment(servletBuilder);
 			manager.deploy();
 
