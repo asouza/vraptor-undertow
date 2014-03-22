@@ -1,0 +1,3 @@
+fidhfkdshfkusd
+${component.message()}
+${message}

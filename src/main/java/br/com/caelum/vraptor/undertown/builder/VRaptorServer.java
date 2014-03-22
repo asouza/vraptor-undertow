@@ -19,6 +19,7 @@ import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.jsp.JspFactory;
 
 import org.apache.jasper.deploy.JspPropertyGroup;
 import org.apache.jasper.deploy.TagLibraryInfo;
@@ -42,11 +43,10 @@ class VRaptorServer {
 			//it would be nice to discover what this is
 			long transferMinSize = 100l;
 			ResourceManager webappResourceManager = new FileResourceManager(new File(webAppFolder), transferMinSize);
-			
 			DeploymentInfo webXml = deployment().setClassLoader(VRaptorFilterFactory.class.getClassLoader())
 					.setContextPath(context).setDeploymentName(warName+".war")
-					.addListener(weldListener)
 					.addListener(jspFactoryListener)
+					.addListener(weldListener)
 					.addFilter(vraptorFilter)
 					.addFilterUrlMapping("vraptor", "/*", DispatcherType.REQUEST)
 					.addFilterUrlMapping("vraptor", "/*", DispatcherType.FORWARD)
