@@ -12,7 +12,7 @@ public class ConfigJspFactoryListener implements ServletContextListener {
 	}
 
 	@Override
-	public void contextInitialized(ServletContextEvent event) {
+	public void contextInitialized(ServletContextEvent event) {		
 		JspFactory.setDefaultFactory(new org.apache.jasper.runtime.JspFactoryImpl());
 	}
 
