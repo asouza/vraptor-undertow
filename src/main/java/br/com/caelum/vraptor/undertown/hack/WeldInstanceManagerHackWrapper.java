@@ -1,4 +1,4 @@
-package br.com.caelum.vraptor.undertown;
+package br.com.caelum.vraptor.undertown.hack;
 
 import io.undertow.jsp.HackInstanceManager;
 

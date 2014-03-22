@@ -1,3 +1,0 @@
-aeeeeee
-${component.message()}
-${test}

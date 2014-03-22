@@ -1,4 +1,4 @@
-package br.com.caelum.vraptor.undertown;
+package br.com.caelum.vraptor.undertown.listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

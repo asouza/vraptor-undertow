@@ -1,4 +1,4 @@
-package br.com.caelum.vraptor.undertown;
+package br.com.caelum.vraptor.undertown.factory;
 
 import javax.enterprise.inject.spi.CDI;
 
