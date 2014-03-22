@@ -1,1 +1,3 @@
 aeeeeee
+${component.message()}
+${test}
