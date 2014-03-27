@@ -3,15 +3,12 @@ package br.com.caelum.vraptor.undertown.builder;
 import io.undertow.servlet.api.DeploymentInfo;
 import io.undertow.servlet.api.ServletInfo;
 
-import java.util.HashMap;
-
-import javax.enterprise.inject.spi.CDI;
+import java.util.Map;
 
 import org.apache.jasper.deploy.JspPropertyGroup;
 import org.apache.jasper.deploy.TagLibraryInfo;
 import org.apache.jasper.servlet.JspServlet;
 import org.apache.tomcat.InstanceManager;
-import org.jboss.weld.manager.BeanManagerImpl;
 
 import br.com.caelum.vraptor.undertown.hack.WeldInstanceManagerHackWrapper;
 import static org.apache.jasper.Constants.JSP_PROPERTY_GROUPS;
@@ -21,7 +18,7 @@ import static org.apache.jasper.Constants.SERVLET_VERSION;
 public class CDIAwareJspServletBuilder {
 
 	public static void setupDeployment(final DeploymentInfo deploymentInfo,
-			final HashMap<String, JspPropertyGroup> propertyGroups, final HashMap<String, TagLibraryInfo> tagLibraries) {
+			final Map<String, JspPropertyGroup> propertyGroups, final Map<String, TagLibraryInfo> tagLibraries) {
 		deploymentInfo.addServletContextAttribute(SERVLET_VERSION, deploymentInfo.getMajorVersion() + "."
 				+ deploymentInfo.getMinorVersion());
 		deploymentInfo.addServletContextAttribute(JSP_PROPERTY_GROUPS, propertyGroups);

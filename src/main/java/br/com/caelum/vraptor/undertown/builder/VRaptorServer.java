@@ -17,9 +17,7 @@ import java.util.HashMap;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.jsp.JspFactory;
 
 import org.apache.jasper.deploy.JspPropertyGroup;
 import org.apache.jasper.deploy.TagLibraryInfo;
@@ -27,6 +25,7 @@ import org.jboss.weld.environment.servlet.Listener;
 
 import br.com.caelum.vraptor.VRaptor;
 import br.com.caelum.vraptor.undertown.factory.VRaptorFilterFactory;
+import br.com.caelum.vraptor.undertown.hack.TldsLoader;
 import br.com.caelum.vraptor.undertown.listener.ConfigJspFactoryListener;
 import static io.undertow.servlet.Servlets.defaultContainer;
 import static io.undertow.servlet.Servlets.deployment;
@@ -55,7 +54,7 @@ class VRaptorServer {
 			
 			
 			CDIAwareJspServletBuilder.setupDeployment(webXml, new HashMap<String, JspPropertyGroup>(),
-					new HashMap<String, TagLibraryInfo>());
+					TldsLoader.load());
 			
 			DeploymentManager manager = defaultContainer().addDeployment(webXml);
 			manager.deploy();

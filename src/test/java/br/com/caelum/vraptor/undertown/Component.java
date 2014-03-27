@@ -14,10 +14,6 @@ public class Component {
 	private Result result;
 
 	public void test() {
-		result.include("message","mensagem");
-	}
-
-	public void message() {
-		System.out.println("message");
+		result.include("message","it works");
 	}
 }
