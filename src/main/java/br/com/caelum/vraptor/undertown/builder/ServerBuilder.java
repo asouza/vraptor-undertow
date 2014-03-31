@@ -1,5 +1,8 @@
 package br.com.caelum.vraptor.undertown.builder;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ServerBuilder {
 
 	public class WebAppContext {
@@ -23,17 +26,25 @@ public class ServerBuilder {
 		private String context;
 		private int port;
 		private String address;
+		private Map<String, String> initParameters = new HashMap<String, String>();
 
-		public ServerAddress(String warName, String folderPath, String context, int port, String address) {
+		public ServerAddress(String warName, String folderPath, 
+				String context, int port, String address) {
 			this.warName = warName;
 			this.folderPath = folderPath;
 			this.context = context;
 			this.port = port;
 			this.address = address;
 		}
+		
+		public ServerAddress addInitParameter(String key, String value) {
+			initParameters.put(key, value);
+			return this;
+		}
 
 		public void start() {
-			VRaptorServer.start(context, folderPath, warName, port, address);
+			VRaptorServer.start(context, folderPath, warName, 
+					port, address, initParameters);
 		}
 
 	}
