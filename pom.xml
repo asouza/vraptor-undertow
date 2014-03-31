@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>br.com.caelum.vraptor</groupId>
-	<artifactId>vraptor-undertown</artifactId>
+	<artifactId>vraptor-undertow</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>vraptor-undertown</name>
+	<name>vraptor-undertow</name>
 	<url>http://github.com/asouza/vraptor-undertown</url>
 
 	<properties>
@@ -20,9 +20,9 @@
 		<dependency>
 			<groupId>br.com.caelum</groupId>
 			<artifactId>vraptor</artifactId>
-			<version>4.0.0-RC2-SNAPSHOT</version>
+			<version>4.0.0-RC3-SNAPSHOT</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>org.jboss.weld.servlet</groupId>
 			<artifactId>weld-servlet</artifactId>
