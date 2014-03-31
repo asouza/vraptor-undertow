@@ -44,6 +44,7 @@ class VRaptorServer {
 			ResourceManager webappResourceManager = new FileResourceManager(new File(webAppFolder), transferMinSize);
 			DeploymentInfo webXml = deployment().setClassLoader(VRaptorFilterFactory.class.getClassLoader())
 					.setContextPath(context).setDeploymentName(warName+".war")
+					.addInitParameter("javax.servlet.jsp.jstl.fmt.localizationContext", "messages")
 					.addListener(jspFactoryListener)
 					.addListener(weldListener)
 					.addFilter(vraptorFilter)
