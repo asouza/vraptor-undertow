@@ -8,7 +8,7 @@ import br.com.caelum.vraptor.Result;
 
 @Controller
 @Named("component")
-public class Component {
+public class TestController {
 
 	@Inject
 	private Result result;
