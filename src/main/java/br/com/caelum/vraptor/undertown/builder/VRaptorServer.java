@@ -23,7 +23,6 @@ import javax.servlet.Filter;
 import javax.servlet.ServletException;
 
 import org.apache.jasper.deploy.JspPropertyGroup;
-import org.apache.jasper.deploy.TagLibraryInfo;
 import org.jboss.weld.environment.servlet.Listener;
 
 import br.com.caelum.vraptor.VRaptor;
@@ -69,7 +68,8 @@ class VRaptorServer {
 			manager.deploy();
 
 			HttpHandler servletHandler = manager.start();
-			PathHandler path = Handlers.path(Handlers.redirect(context)).addPrefixPath(context, servletHandler);
+			PathHandler path = Handlers.path(Handlers.redirect(context)).addPrefixPath(
+					context.trim().isEmpty()?"/":context.trim(), servletHandler);
 			
 			Undertow server = Undertow.builder().addHttpListener(port, address).setHandler(path).build();
 			server.start();

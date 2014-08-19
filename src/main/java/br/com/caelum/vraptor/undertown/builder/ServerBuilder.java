@@ -108,7 +108,14 @@ public class ServerBuilder {
 	}
 
 	public static WebAppContext context(String context) {
+		if(context == null){
+			throw new IllegalArgumentException("You must pass a not null context");
+		}
 		return new ServerBuilder().new WebAppContext(context);
+	}
+	
+	public static WebAppContext root() {
+		return context("");
 	}
 
 }
